@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Czarny Sztandar </title>
+    <link rel="icon" href="loga/Logo.png" type="image/png">
+    <link rel="shortcut icon" href="loga/Logo.png" type="image/png">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; connect-src 'self' https://ggkwgayqgmiwzhhivzqt.supabase.co https://formspree.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'self' https://formspree.io;">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #0f0f0f;
+            --bg-panel: #1a1a1a;
+            --bg-panel-hover: #252525;
+            --text-main: #d4d4d4;
+            --text-dim: #888;
+            --red-primary: #818181;
+            --red-dark: #cec5c5;
+            --red-glow: rgba(74, 74, 74, 0.3);
+            --border-color: #333333;
+            --accent-gradient: linear-gradient(135deg, #cfcaca 0%, #969393 100%);
+            --font-head: 'Bebas Neue', 'Impact', sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-page);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(74, 74, 74, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(74, 74, 74, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* HEADER - Napis Czarny Sztandar (nieprzyklejony, standardowy) */
+        header {
+            background: linear-gradient(180deg, #1d1d1d 0%, #0f0f0f 100%);
+            border-bottom: 3px solid var(--red-primary);
+            padding: 50px 20px;
+            text-align: center;
+            position: relative; /* Zwykła pozycja, przewija się z treścią */
+            overflow: hidden;
+            z-index: 50;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red-primary), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(50%); }
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            font-size: 4.5rem;
+            letter-spacing: 4px;
+            margin: 0;
+            line-height: 1;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px var(--red-glow));
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { filter: drop-shadow(0 0 20px var(--red-glow)); }
+            50% { filter: drop-shadow(0 0 40px var(--red-glow)); }
+        }
+
+        h1 span {
+            color: var(--red-primary);
+        }
+
+        .subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: var(--text-dim);
+            margin-top: 20px;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        input[type="radio"] { display: none; }
+
+        /* NAV - Belka menu (Inteligentna) */
+        nav {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            
+            /* To sprawia, że menu się przykleja do sufitu */
+            position: sticky; 
+            top: 0;
+            z-index: 100;
+            
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            
+            /* Płynna animacja zsuwania/wysuwania */
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        /* Klasa, która chowa menu do góry */
+        nav.nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        nav label {
+            padding: 18px 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-right: 1px solid var(--border-color);
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        nav label::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav label:hover {
+            background: var(--bg-panel-hover);
+            color: #fff;
+        }
+
+        nav label:hover::before {
+            width: 100%;
+        }
+
+        #tab1:checked ~ nav label[for="tab1"],
+        #tab2:checked ~ nav label[for="tab2"],
+        #tab3:checked ~ nav label[for="tab3"],
+        #tab4:checked ~ nav label[for="tab4"],
+        #tab5:checked ~ nav label[for="tab5"],
+        #tab6:checked ~ nav label[for="tab6"],
+        #tab9:checked ~ nav label[for="tab9"],
+        #tab10:checked ~ nav label[for="tab10"],
+        #tab11:checked ~ nav label[for="tab11"] {
+            background: var(--bg-panel);
+            color: var(--red-primary);
+        }
+
+        #tab1:checked ~ nav label[for="tab1"]::before,
+        #tab2:checked ~ nav label[for="tab2"]::before,
+        #tab3:checked ~ nav label[for="tab3"]::before,
+        #tab4:checked ~ nav label[for="tab4"]::before,
+        #tab5:checked ~ nav label[for="tab5"]::before,
+        #tab6:checked ~ nav label[for="tab6"]::before,
+        #tab9:checked ~ nav label[for="tab9"]::before,
+        #tab10:checked ~ nav label[for="tab10"]::before,
+        #tab11:checked ~ nav label[for="tab11"]::before {
+            width: 100%;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #tab1:checked ~ .content-wrapper #home,
+        #tab2:checked ~ .content-wrapper #about,
+        #tab3:checked ~ .content-wrapper #library,
+        #tab4:checked ~ .content-wrapper #iskra,
+        #tab5:checked ~ .content-wrapper #support,
+        #tab6:checked ~ .content-wrapper #media,
+        #tab9:checked ~ .content-wrapper #publications,
+        #tab10:checked ~ .content-wrapper #downloads,
+        #tab11:checked ~ .content-wrapper #recruitment {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gradient);
+        }
+
+        .post:hover {
+            border-color: var(--red-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.15);
+        }
+
+        .post h2 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            letter-spacing: 2px;
+        }
+
+        .post h3 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            color: var(--red-primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .post p {
+            margin-bottom: 18px;
+            text-align: justify;
+            color: var(--text-main);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        details {
+            margin-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 15px;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--red-primary);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            list-style: none;
+            padding: 12px 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        summary::before {
+            content: '▶';
+            font-size: 0.7em;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        summary:hover {
+            color: var(--red-dark);
+            padding-left: 10px;
+        }
+
+        summary::after {
+            content: " CZYTAJ CAŁOŚĆ";
+        }
+
+        details[open] summary::after {
+            content: " ZWIŃ TEKST";
+        }
+
+        details[open] div {
+            animation: fadeIn 0.5s;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .post-img {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            display: block;
+            margin: 30px auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .post-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-gradient);
+            color: #fff;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px var(--red-glow);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--red-glow);
+        }
+
+        .btn-coffee {
+            background: linear-gradient(135deg, #666 0%, #555 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
+        }
+
+        .btn-coffee:hover {
+            box-shadow: 0 6px 25px rgba(102, 102, 102, 0.5);
+        }
+
+        .social-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 15px;
+        }
+
+        .social-list li {
+            margin-bottom: 0;
+        }
+
+        .social-list a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+            padding: 18px 24px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--bg-panel);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-list a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .social-list a:hover {
+            color: #fff;
+            border-color: var(--red-primary);
+            transform: translateX(5px);
+        }
+
+        .social-list a:hover::before {
+            left: 0;
+        }
+
+        .footnotes {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 25px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .footnotes a {
+            color: var(--red-primary);
+            transition: color 0.3s ease;
+        }
+
+        .footnotes a:hover {
+            color: var(--red-dark);
+        }
+
+        .iskra-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .iskra-item {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .iskra-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .iskra-item:hover {
+            border-color: var(--red-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .iskra-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .iskra-item h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-family: var(--font-head);
+            letter-spacing: 1px;
+        }
+
+        .iskra-item p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #000;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        input[type="text"] {
+            font-family: var(--font-body);
+        }
+
+        #searchLibrary {
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        #searchLibrary:focus {
+            outline: none;
+            border-color: var(--red-primary);
+            box-shadow: 0 0 0 3px var(--red-glow);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+                letter-spacing: 2px;
+            }
+
+            nav {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            nav label {
+                padding: 14px 18px;
+                font-size: 0.75rem;
+                text-align: center;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            nav label:nth-child(3n) {
+                border-right: none;
+            }
+
+            .post {
+                padding: 25px;
+            }
+
+            .iskra-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-wrapper {
+                padding: 20px 15px 80px;
+            }
+        }
+
+
+        .recruitment-form {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 35px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--red-primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="number"]:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--red-primary);
+            box-shadow: 0 0 0 3px var(--red-glow);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .radio-option label {
+            color: var(--text-main);
+            cursor: pointer;
+            margin: 0;
+            text-transform: none;
+            font-size: 1rem;
+            letter-spacing: normal;
+        }
+
+        .btn-submit {
+            background: var(--accent-gradient);
+            color: #fff;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--red-glow);
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--red-glow);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .publication-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--red-primary);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .publication-card:hover {
+            border-color: var(--red-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
+        }
+
+        .publication-card h3 {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .publication-card .date {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .publication-card p {
+            color: var(--text-main);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .download-item {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .download-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .download-item:hover {
+            border-color: var(--red-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .download-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .download-item h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-family: var(--font-head);
+            letter-spacing: 1px;
+            font-size: 1.3rem;
+        }
+
+        .download-item p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="radio" id="tab1" name="nav" checked>
+    <input type="radio" id="tab2" name="nav">
+    <input type="radio" id="tab3" name="nav">
+    <input type="radio" id="tab9" name="nav">
+    <input type="radio" id="tab4" name="nav">
+    <input type="radio" id="tab10" name="nav">
+    <input type="radio" id="tab11" name="nav">
+    <input type="radio" id="tab5" name="nav">
+    <input type="radio" id="tab6" name="nav">
+
+    <header>
+        <h1>Czarny <span>Sztandar</span></h1>
+        <div class="subtitle">Niezależna Inicjatywa Anarchistyczna</div>
+    </header>
+
+    <nav>
+        <label for="tab1">Aktualności</label>
+        <label for="tab2">Kim Jesteśmy</label>
+        <label for="tab3">Biblioteka</label>
+        <label for="tab9">Publikacje</label>
+        <label for="tab4">Iskra</label>
+        <label for="tab10">Do pobrania</label>
+        <label for="tab11">Rekrutacja</label>
+        <label for="tab5">Wesprzyj nas</label>
+        <label for="tab6">Kontakt</label>
+    </nav>
+
+    <div class="content-wrapper">
+
+        <section id="home" class="page-section">
+            <div style="margin-bottom: 30px; background: linear-gradient(135deg, rgba(74, 74, 74, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%); padding: 20px; border: 1px solid var(--red-primary); border-radius: 8px; text-align: center; color: var(--red-primary); font-weight: 600; letter-spacing: 1px;">
+                OFICJALNY KANAŁ INFORMACYJNY
+            </div>
+
+            <article class="post">
+                <h2>Koniec rożawy jaką znamy?</h2>
+                <div class="date">1 Luty 2026</div>
+                <p>W związku z porozumieniem między Syryjskimi Siłami Demokratycznymi, a rządem syryjskim oficjalnie Autonomiczna Administracja Północnej i Wschodniej Syri (pot. Rożawa) przestała istnieć.</p><br>
+                <p>Rożawa została zmuszona do ugięcia się pod wpływem ataków ze strony dżihadystycznego HTS, wspieranego przez Turcję. Rząd syryjski dokonywał czystek w Aleppo i nie tylko. SDF (Syrian Democratic Forces) opuściło terytoria należące w większości do arabów, którzy byli częściowo przeciwni Rożawie i cofnęło się do obrony Kurdyjskich enklaw.</p><br>
+                <p>Pomimo zaciekłych walk siły Kurdyjskie zostały zmuszone do podpisania porozumienia, które, warto to zazwycznaczyć, nie stawia Kurdów w złej sytuacji, gwarantuję Kurdom uznanie ich języka i tożsamości narodowej, część SDF zostanie włączone w skład syryjskiej armii.</p><br>
+                <p>Aktualnie Kurdowie mają sytuację polityczną najlepszą w całej historii Syrii. Kurdowie będą dalej prowadzić walki na arenie politycznej, przy jednoczesnej możliwości powrotu do walki zbrojnej, kiedy ich zagwarantowane prawa nie będą przestrzegane.</p><br>
+                <p>Rożawa była projektem, który pokazał, że demokracja bezpośrednia jest możliwa, nawet w warunkach wojennych. Choć nie była ona idealna, to była ważnym krokiem w ruchu rewolucyjnym, przede wszystkim w rewolucji kobiet. Walka Kurdyjek się nie skończyła, a pełna autonomia Rożawy jest cennym doświadczeniem dla tych walk.</p><br>
+                <p><strong>Şehîd namirin!</strong></p>
+            </article>
+
+            <article class="post">
+              <h2>Nowi My!</h2>
+                <div class="date">1 Luty 2026</div>
+                <p>Zmieniamy profil działalności z anarcho-komunistycznej na ogólno-anarchistyczną, z racji tego zmieniamy nazwę, z Czerń i Czerwień na Czarny Sztandar.</p>
+                <p>Jednocześnie modyfikujemy nasze logo, zmieniamy też lekko estetykę naszej strony, dodaliśmy też do niej klika nowych zakładek!</p>
+                <p><strong>WSZYSTKIE STARE MATERIAŁY ZNAJDZIESZ NA STAREJ STRONIE!</strong></p>
+                <img src="loga/Logo.png" alt="Nowe Logo Czarny Sztandar" class="post-img">
+            </article>
+        </section>
+
+        <section id="about" class="page-section">
+            <div class="post">
+                <h2>O Nas</h2>
+                <p>Jesteśmy grupą niezrzeszonych anarchistów i antyfaszystów, których połączyła wspólna wizja świata wolnego od przymusu i hierarchii. Nie funkcjonujemy jako formalna organizacja z zarządem czy statutem. Zamiast tego, tworzymy otwartą i elastyczną sieć osób, które z entuzjazmem dzielą się swoimi przemyśleniami i aktywnie sprzeciwiają się wszelkim formom dominacji, ucisku oraz autorytaryzmu.</p>
+                <p>Nasza działalność koncentruje się na analizie i komentowaniu bieżących wydarzeń społecznych i politycznych, a także na tworzeniu własnej publicystyki. Dążymy do przedstawiania perspektyw, które często są pomijane lub celowo marginalizowane w głównym nurcie mediów.</p>
+                <p>Wierzymy, że edukacja i swobodna wymiana myśli są kluczowe w budowaniu społeczeństwa opartego na solidarności, autonomii i prawdziwej sprawiedliwości społecznej. Dlatego też nasze działania obejmują również obecność na manifestacjach i ulicach, gdzie aktywnie wyrażamy nasz sprzeciw i wspieramy ruchy społeczne.</p>
+            </div>
+        </section>
+
+        <section id="library" class="page-section">
+            <h2 style="margin-bottom: 30px; border-bottom: 2px solid var(--red-primary); padding-bottom: 15px; font-family: var(--font-head); text-transform: uppercase; font-size: 2.5rem; letter-spacing: 2px;">Biblioteka</h2>
+
+            <input type="text" id="searchLibrary" placeholder="Szukaj w bibliotece..."
+                   style="width: 100%; padding: 15px 20px; background: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main); margin-bottom: 30px; font-family: inherit; font-size: 1rem;">
+
+            <div class="post">
+                <h2>Czy jestem Anarchistą?</h2>
+                <p>Anarchizm to nie chaos. To wiara w zdolność ludzi do samoorganizacji.</p>
+                <details>
+                    <summary></summary>
+                    <div>
+                        <p>Słowo "anarchizm" często budzi niepokój, kojarząc się z chaosem i brakiem porządku. Jednak prawdziwe oblicze anarchizmu jest zupełnie inne. Nie chodzi o rozbijanie szyb czy burzenie wszystkiego dookoła. Anarchizm to przede wszystkim wiara w naszą wspólną zdolność do organizacji, do wzajemnego wspierania się i do tworzenia sensownego życia bez potrzeby narzucania nam czegokolwiek z góry.</p>
+                        <p>Pomyśl o codzienności. Kiedy ostatnio uczestniczyłeś w grupie sąsiedzkiej, która wspólnie dba o lokalny park lub organizuje wymianę rzeczy, by nic się nie marnowało? A może wspierasz kooperatywę spożywczą, gdzie członkowie razem decydują o zakupach i zarządzają dystrybucją żywności, bez udziału wielkich korporacji? Albo gdy razem ze znajomymi tworzycie otwarty projekt edukacyjny w internecie, dzieląc się wiedzą bez opłat i hierarchii? To są właśnie te momenty, w których wcielamy w życie anarchistyczne zasady – autonomię, wzajemną pomoc i oddolną inicjatywę. Działamy, bo widzimy potrzebę, nie dlatego, że ktoś nam kazał.</p>
+                        <p>Anarchizm nie odrzuca porządku, ale dąży do porządku tworzonego przez samych ludzi, z ich własnej woli. Sprzeciwia się natomiast władzy, która opiera się na przymusie, kontroli i hierarchii, tej, która mówi ci, co masz robić, bez twojej zgody i bez względu na twoje potrzeby. Mowa tu o biurokratach, politykach czy korporacjach, które często podejmują decyzje wbrew interesom większości, a w imię własnych korzyści.</p>
+                        <p>Wyobraź sobie społeczeństwo, w którym decyzje podejmowane są wspólnie, na zasadzie porozumienia, a nie narzucane przez nielicznych. Gdzie ludzie współpracują ze sobą, aby zaspokajać swoje potrzeby, a nie rywalizują o zasoby. Gdzie zamiast wszechobecnej kontroli i regulacji, panuje zaufanie i odpowiedzialność. To jest właśnie dążenie anarchizmu – do świata, w którym każdy z nas ma realny wpływ na swoje życie i otoczenie, bez ulegania arbitralnym nakazom.</p>
+                        <p>Bycie anarchistą to niekoniecznie przynależność do jakiejś partii. To raczej sposób patrzenia na świat, sposób myślenia o wolności i odpowiedzialności. To kwestionowanie władzy, która rości sobie prawo do dominacji nad nami, a jednocześnie aktywne poszukiwanie i tworzenie alternatywnych rozwiązań w naszym codziennym życiu. To także wyjście na ulice i manifestowanie, gdy widzimy niesprawiedliwość. Nie czekamy na "wielką rewolucję", ale staramy się żyć wolniej i tworzyć wolne przestrzenie tu i teraz – w naszych wspólnotach, w naszych relacjach, w każdym naszym działaniu.</p>
+                        <p>Anarchizm to zaproszenie do budowania świata opartego na równości, solidarności i swobodzie, świata, w którym ludzie wspólnie decydują o swojej przyszłości.</p>
+                    </div>
+                </details>
+            </div>
+             <div class="post">
+                <h2>Twoja wolność to ich zysk</h2>
+                <p>Liberalizm obiecuje wolność, ale daje ją tylko bogatym.</p>
+                <details>
+                    <summary></summary>
+                    <div>
+                        <p>Liberalizm mówi, że wolność jednostki jest najważniejsza. Ale nigdy nie mówi, że tą jednostką jest zawsze ktoś, kto ma ziemię, kapitał, władze i ochronę państwa. Liberalizm zawsze sprzeda ci bajkę o wolnym rynku, o równych szansach i "sukcesie" jako nagrodzie za twoją ciężką pracę.</p>
+                        <p>Ale kiedy to ty próbujesz sięgnąć po tę ich wolność, okazuje się nagle, że ktoś już ustawił planszę tej gry. Gdy ty pracujesz oni zarabiają. Gdy ty bierzesz kredyt oni dziedziczą kolejną kamienicę. Gdy ty masz wolność słowa oni mają media.</p>
+                        <p>W liberalizmie pozwalają ci mówić do momentu, w którym nie zagrażasz ich zyskom. To tak, jakbyś miał prawo protestować, ale tylko do chwili, gdy nie zablokujesz drogi. Liberalizm jest "tolerancyjny" do momentu w którym im się to opłaca.</p>
+                        <p>Anarchizm nie chce pseudo "wolności" w której masz wybór między dwiema firmami chce życie bez przymusu. Jednocześnie nie dąży do równości wobec prawa, ale do końca prawa, które istnieje po to, by sankcjonować i utrwalać wyzysk. W tym miejscu trzeba zaznaczyć, że nie oznacza to bezprawia. Anarchizm odrzuca prawo odgórne, a w zamian proponuje ład oparty na dobrowolnych zasadach, wzajemnym szacunku i odpowiedzialności zbiorowej.</p>
+                        <p>Nie chcemy demokracji liberalnej ani innych "wspaniałych zamienników", lecz wspólnot, które same o sobie decydują. Liberalizm ma na celu cie zreformować bo to właśnie liberalizm pozwala, by garstka miała wszystko, a reszta cieszyła się, że ma cokolwiek. Liberalizm ma na celu pokazać ci twoje miejsce w szeregu i postawić mur dla twojej "wolności".</p>
+                    </div>
+                </details>
+                </div>
+                <div class="post">
+                <h2>Naród dla bogatych</h2>
+                <p>Dlaczego nacjonalizm jest narzędziem w rękach władzy?</p>
+                <details>
+                    <summary></summary>
+                    <div>
+                        <p>Od dziecka uczą nas dumy z bycia obywatelem danego państwa, dumy ze swojej flagi. Wmawiane jest nam, że naród to rodzina, a ojczyzna to matka. Mamy być gotowi umrzeć za "ojczyznę", nawet jeśli ta ojczyzna nie zrobiła nic, byśmy mogli w niej godnie żyć.</p>
+                        <p>Politycy, dziennikarze, media – nikt z tych grup nie odpowiada, dla kogo tak naprawdę jest ta ojczyzna. Bo w momencie, gdy polityk każe ci śpiewać hymn, to nie dlatego, że zależy mu na twoim losie, lecz chce, żebyś milczał, żebyś nie pytał, czemu jego dziecko studiuje za granicą, a ty masz zapieprzać na śmieciówce.</p>
+                        <p>Nacjonalizm nie jest miłością do ziemi. To kij, którym bije się klasę pracującą, żeby nie zauważyła, kto realnie ją okrada. Nacjonalizm to ideologia, która każe ludziom walczyć między sobą na podstawie granic, które narysowali kiedyś królowie, kapitaliści i generałowie. To fałszywa tożsamość, która narzuca się tym, którzy mają najmniej, żeby nigdy nie próbowali podnieść wzroku ku tym, którzy mają wszystko. Pracownik z Łomży ma mniej wspólnego z prezesem z Warszawy niż z robotnikiem z Kijowa, Berlina czy Stambułu, bo i jeden, i drugi wie, jak smakuje przepracowana noc i jak wygląda pusty portfel pod koniec miesiąca.</p>
+                        <p>Nacjonalizm robi z biednych ludzi żołnierzy, wyborców, fanatyków. Każe im bronić "narodu", który w praktyce oznacza interesy polityków, oligarchów i korporacji. Kiedy ktoś ci mówi: „Imigranci zabiorą ci pracę”, to realnie pyta, kto zbudował system, w którym trzeba konkurować o prawo do życia. Anarchiści od dawna mówią, że ojczyzna to fikcja. Prawdziwa wspólnota rodzi się z solidarności, nie granic. Emma Goldman pisała: „Patriotyzm to ostatnie schronienie łajdaka” – bo kiedy nie masz już nic do zaproponowania ludziom, sprzedajesz im sztandar i dumę z bycia biednym, ale przynajmniej za "wielkim narodem”</p>
+                        <p>W świecie, gdzie jedni mają wille i armie, a drudzy stoją w kolejce po leki, nacjonalizm to broń klas wyższych. To sposób, aby biedni nie zauważyli, kto naprawdę trzyma ich za gardło. Dlatego w anarchizmie nie jest tylko odrzucenie granic, a odrzucenie klas, władzy, mitów, które mają na celu dzielić ludzi. Jednocześnie, mówiąc to, anarchizm nie rzuca słów na wiatr, a proponuje rozwiązania. Zamiast narodów – wspólnota, zamiast granic – solidarność, a zamiast przemocy klasowej – rewolucja. Trzeba pamiętać, że siła nie leży w hymnie ani w orle na paszporcie, ale leży w tym, że stajesz ramię w ramię z drugim człowiekiem. Nie ma znaczenia, czy mówisz tym czy innym językiem, nie ma znaczenia, jaki ktoś ma kolor skóry czy pochodzenia. ŻADEN CZŁOWIEK NIE JEST NIELEGALNY!</p>
+                    </div>
+                </details>
+                </div>
+
+        </section>
+
+        <section id="iskra" class="page-section">
+            <h2 style="margin-bottom: 30px; border-bottom: 2px solid var(--red-primary); padding-bottom: 15px; font-family: var(--font-head); text-transform: uppercase; font-size: 2.5rem; letter-spacing: 2px;">Archiwum Pisma "Iskra"</h2>
+            <div class="post" style="border-left: none;">
+                <p>Pobierz archiwalne i bieżące numery w formacie PDF:</p>
+            </div>
+
+            <div class="iskra-grid">
+                 <div class="iskra-item">
+                    <div>
+                        <h3>Iskra Nr 6 (2026)</h3>
+                        <p>Temat: Imperialna przemoc wobec Wenezueli! Polityka agresji Trumpa.</p>
+                    </div>
+                    <a href="Iskra/Iskra.6.pdf" class="btn" target="_blank" download>POBIERZ PDF</a>
+                </div>
+                <div class="iskra-item">
+                    <div>
+                        <h3>Iskra Nr 5 (2025)</h3>
+                        <p>Temat: Polski trotyl i ludobójstwo w Gazie. AboTak oblana kwasem.</p>
+                    </div>
+                    <a href="Iskra/Iskra.5.pdf" class="btn" target="_blank" download>POBIERZ PDF</a>
+                </div>
+
+                <div class="iskra-item">
+                    <div>
+                        <h3>Iskra Nr 4 (2025)</h3>
+                        <p>Temat: Flotylla zatrzymana! Deportacja za wykroczenia.</p>
+                    </div>
+                    <a href="Iskra/Iskra.4.pdf" class="btn" target="_blank" download>POBIERZ PDF</a>
+                </div>
+
+                <div class="iskra-item">
+                    <div>
+                        <h3>Iskra Nr 3 (2025)</h3>
+                        <p>Temat: Morderstwo w Palestynie. Masowy militaryzm.</p>
+                    </div>
+                    <a href="Iskra/Iskra.3.pdf" class="btn" target="_blank" download>POBIERZ PDF</a>
+                </div>
+
+                <div class="iskra-item">
+                    <div>
+                        <h3>Iskra Nr 2 (2025)</h3>
+                        <p>Temat: Stop faszyzmowi. The Base - narzędzie Kremla.</p>
+                    </div>
+                    <a href="Iskra/Iskra.2.pdf" class="btn" target="_blank" download>POBIERZ PDF</a>
+                </div>
+
+                <div class="iskra-item">
+                    <div>
+                        <h3>Iskra Nr 1 (2025)</h3>
+                        <p>Temat: Konfederacja Rasistów. Ułaskawienie faszyzmu.</p>
+                    </div>
+                    <a href="Iskra/Iskra.1.pdf" class="btn" target="_blank" download>POBIERZ PDF</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="support" class="page-section">
+            <div class="post">
+                <h2>Wesprzyj nasze działania</h2>
+                <p><strong>Podoba Ci się nasze działanie? Pomóż nam trzymać linię!</strong></p>
+                <p>Zebrane środki idą na druk materiałów, sprzęt do nagłośnienia, organizację wydarzeń i codzienne funkcjonowanie oddolnych inicjatyw. Nie robimy tego dla kasy. Robimy to, bo wierzymy w solidarność i równość, ale wszystko niestety kosztuje, dlatego potrzebujemy Waszego wsparcia!</p>
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 30px 0;">
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="https://buymeacoffee.com/czerniczernie" class="btn btn-coffee" target="_blank">Postaw nam kawę</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="media" class="page-section">
+            <div class="post">
+                <h2>Media & Kontakt</h2>
+                <p>Jesteśmy obecni w sieci. Obserwuj nas, by być na bieżąco:</p>
+                <ul class="social-list">
+                    <li><a href="https://www.instagram.com/czern_i_czerwien?igsh=MWZhbGYzZTlxZnVvZQ%3D%3D&utm_source=qr" target="_blank">INSTAGRAM</a></li>
+                    <li><a href="https://www.facebook.com/share/1CNeebhVQk/?mibextid=wwXIfr" target="_blank">FACEBOOK</a></li>
+                    <li><a href="https://t.me/CzerniCzerwien" target="_blank">TELEGRAM</a></li>
+                </ul>
+                <hr style="border: 0; border-top: 1px dashed var(--border-color); margin: 40px 0;">
+                <h3>Kontakt E-mail</h3>
+                <p>Dla zachowania prywatności korzystamy z bezpiecznej poczty Proton.</p>
+                <a href="/cdn-cgi/l/email-protection#26455c4354484f455c4354514f434866565449524948084b43" class="btn"><span class="__cf_email__" data-cfemail="6c0f16091e02050f16091e1b0509022c1c1e03180302420109">[email&#160;protected]</span></a>
+            </div>
+        </section>
+
+        <section id="publications" class="page-section">
+            <h2 style="margin-bottom: 30px; border-bottom: 2px solid var(--red-primary); padding-bottom: 15px; font-family: var(--font-head); text-transform: uppercase; font-size: 2.5rem; letter-spacing: 2px;">Publikacje</h2>
+
+            <div class="post" style="border-left: none;">
+                <p>Wszystkie publikacje!</p>
+            </div>
+
+            <div class="publication-card">
+                <h3>Koniec rożawy jaką znamy?</h3>
+                <div class="date">1 Listopada 2026</div>
+                <p>W związku z porozumieniem między Syryjskimi Siłami Demokratycznymi, a rządem syryjskim oficjalnie Autonomiczna Administracja Północnej i Wschodniej Syri (pot. Rożawa) przestała istnieć.</p>
+                <p>Rożawa została zmuszona do ugięcia się pod wpływem ataków ze strony dżihadystycznego HTS, wspieranego przez Turcję. Rząd syryjski dokonywał czystek w Aleppo i nie tylko. SDF (Syrian Democratic Forces) opuściło terytoria należące w większości do arabów, którzy byli częściowo przeciwni Rożawie i cofnęło się do obrony Kurdyjskich enklaw.</p>
+                <p>Pomimo zaciekłych walk siły Kurdyjskie zostały zmuszone do podpisania porozumienia, które, warto to zazwycznaczyć, nie stawia Kurdów w złej sytuacji, gwarantuję Kurdom uznanie ich języka i tożsamości narodowej, część SDF zostanie włączone w skład syryjskiej armii.</p>
+                <p>Aktualnie Kurdowie mają sytuację polityczną najlepszą w całej historii Syrii. Kurdowie będą dalej prowadzić walki na arenie politycznej, przy jednoczesnej możliwości powrotu do walki zbrojnej, kiedy ich zagwarantowane prawa nie będą przestrzegane.</p>
+                <p>Rożawa była projektem, który pokazał, że demokracja bezpośrednia jest możliwa, nawet w warunkach wojennych. Choć nie była ona idealna, to była ważnym krokiem w ruchu rewolucyjnym, przede wszystkim w rewolucji kobiet. Walka Kurdyjek się nie skończyła, a pełna autonomia Rożawy jest cennym doświadczeniem dla tych walk.</p>
+                <P>Şehîd namirin!</P>
+            </div>
+
+        </section>
+
+        <section id="downloads" class="page-section">
+            <h2 style="margin-bottom: 30px; border-bottom: 2px solid var(--red-primary); padding-bottom: 15px; font-family: var(--font-head); text-transform: uppercase; font-size: 2.5rem; letter-spacing: 2px;">Do Pobrania</h2>
+
+            <div class="post" style="border-left: none;">
+                <p>Wszystkie nasze materiały do pobrania!</p>
+            </div>
+
+            <div class="download-item">
+                <div>
+                    <h3>ZIN Czym jest Anarchia?</h3>
+                    <p>W tm zinie znajdziesz odpowiedź na te jakże proste ale i zawiłe pytanie "czym jest anarchia"?</p>
+                </div>
+                <a href="Materialy/CzymAnarchia.pdf" class="btn" target="_blank" download>POBIERZ PDF</a>
+            </div>
+
+            <div class="download-item">
+                <div>
+                    <h3>ULOTKA: Co gdy robisz na śmieciówce?</h3>
+                    <p>W tej ulotce dowiesz się co możesz zrobć gdy pracujesz na umowie śmieciowej</p>
+                </div>
+                <a href="Materialy/smieciowki.pdf" class="btn" download>POBIERZ PDF</a>
+            </div>
+
+        </section>
+
+        <section id="recruitment" class="page-section">
+            <h2 style="margin-bottom: 30px; border-bottom: 2px solid var(--red-primary); padding-bottom: 15px; font-family: var(--font-head); text-transform: uppercase; font-size: 2.5rem; letter-spacing: 2px;">Rekrutacja</h2>
+
+            <div class="post" style="border-left: none;">
+                <p>Chcesz dołączyć do ruchu? Wypełnij formularz poniżej!</p>
+            </div>
+
+            <form class="recruitment-form" id="recruitmentForm" action="https://formspree.io/f/xgozypnn" method="POST">
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="joinBranch" name="applicationType" value="join" checked>
+                        <label for="joinBranch">Chcę dołączyć do oddziału</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="createBranch" name="applicationType" value="create">
+                    </div>
+                </div>
+
+                <div id="joinFields">
+                    <div class="form-group">
+                        <label for="branchSelect">Wybierz oddział *</label>
+                        <select id="branchSelect" name="branch" required>
+                            <option value="">-- Wybierz miasto --</option>
+                            <option value="">Warszawa</option>
+                            <option value="">Ciechanów</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="createFields" class="hidden">
+                    <div class="form-group">>
+                        <input type="text" id="newCity" name="newCity" placeholder="np. Katowice">
+                    </div>
+                    <div class="form-group">
+                        <label for="teamSize">Liczba osób w zespole *</label>
+                        <input type="number" id="teamSize" name="teamSize" min="1" placeholder="np. 3">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredName">Preferowane imię/nick *</label>
+                    <input type="text" id="preferredName" name="preferredName" required placeholder="Jak mamy się do Ciebie zwracać?">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactMethod">Metoda kontaktu *</label>
+                    <select id="contactMethod" name="contactMethod" required>
+                        <option value="">-- Wybierz metodę --</option>
+                        <option value="email">E-mail</option>
+                        <option value="signal">Signal</option>
+                        <option value="telegram">Telegram</option>
+                        <option value="instagram">Instagram</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactValue">Kontakt *</label>
+                    <input type="text" id="contactValue" name="contactValue" required placeholder="Twój adres e-mail, numer telefonu lub nick">
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">Dlaczego chcesz dołączyć do Czarnego Sztandaru? *</label>
+                    <textarea id="reason" name="reason" required placeholder="Opowiedz nam o swoich motywacjach..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="anarchismDefinition">Czym jest dla Ciebie anarchizm? *</label>
+                    <textarea id="anarchismDefinition" name="anarchismDefinition" required placeholder="Opisz swoją wizję anarchizmu..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Wyślij zgłoszenie</button>
+            </form>
+        </section>
+
+    </div>
+
+    <footer>
+        NO COPYRIGHT © 2026 CZERŃ I CZERWIEŃ<br>
+        Wolna licencja. Kopiowanie zalecane.
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ggkwgayqgmiwzhhivzqt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdna3dnYXlxZ21pd3poaGl2enF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4ODU3NzAsImV4cCI6MjA4NTQ2MTc3MH0.8U3ayfxIWW-j-OfAvtD6kLaheO5iPugzHGNHb0kCGRE';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.getElementById('searchLibrary').addEventListener('keyup', function() {
+            let filter = this.value.toUpperCase();
+            let posts = document.querySelectorAll('#library .post');
+
+            posts.forEach(post => {
+                let title = post.querySelector('h2').innerText;
+                let text = post.innerText;
+                if (title.toUpperCase().indexOf(filter) > -1 || text.toUpperCase().indexOf(filter) > -1) {
+                    post.style.display = "";
+                } else {
+                    post.style.display = "none";
+                }
+            });
+        });
+
+        async function loadBranches() {
+            const { data, error } = await supabase
+                .from('branches')
+                .select('*')
+                .eq('is_active', true)
+                .order('city');
+
+            if (error) {
+                console.error('Error loading branches:', error);
+                return;
+            }
+
+            const select = document.getElementById('branchSelect');
+            data.forEach(branch => {
+                const option = document.createElement('option');
+                option.value = branch.id;
+                option.textContent = branch.city;
+                select.appendChild(option);
+            });
+        }
+
+        const joinRadio = document.getElementById('joinBranch');
+        const createRadio = document.getElementById('createBranch');
+        const joinFields = document.getElementById('joinFields');
+        const createFields = document.getElementById('createFields');
+
+        joinRadio.addEventListener('change', function() {
+            if (this.checked) {
+                joinFields.classList.remove('hidden');
+                createFields.classList.add('hidden');
+                document.getElementById('branchSelect').required = true;
+                document.getElementById('newCity').required = false;
+                document.getElementById('teamSize').required = false;
+            }
+        });
+
+        createRadio.addEventListener('change', function() {
+            if (this.checked) {
+                createFields.classList.remove('hidden');
+                joinFields.classList.add('hidden');
+                document.getElementById('branchSelect').required = false;
+                document.getElementById('newCity').required = true;
+                document.getElementById('teamSize').required = true;
+            }
+        });
+
+        
+        document.getElementById('recruitmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            fetch("https://formspree.io/f/xgozypnn", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Zgłoszenie zostało wysłane na maila!');
+                    form.reset();
+                } else {
+                    alert('Wystąpił błąd przy wysyłce.');
+                }
+            }).catch(error => {
+                alert('Błąd połączenia z serwerem pocztowym.');
+            });
+        });
+
+        loadBranches();
+
+        // --- SKRYPT ODPOWIEDZIALNY ZA INTELIGENTNE MENU ---
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Logika: Jeśli przewijamy w dół (scrollTop > lastScrollTop) i minęliśmy nagłówek (>100px)
+            // to ukrywamy TYLKO menu nawigacyjne.
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.classList.add('nav-hidden');
+            } else {
+                // Jeśli przewijamy w górę - pokazujemy menu
+                nav.classList.remove('nav-hidden');
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+    </script>
+</body>
+</html>
